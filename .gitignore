@@ -1,0 +1,98 @@
+﻿# ==========================
+# Python
+# ==========================
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Virtual environments
+venv/
+.venv/
+*/venv/
+*/.venv/
+
+# ==========================
+# Node / Next.js
+# ==========================
+node_modules/
+*/node_modules/
+.next/
+*/.next/
+out/
+*/out/
+dist/
+build/
+.turbo/
+.vercel/
+
+# ==========================
+# Environment / Secrets
+# ==========================
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+
+# ==========================
+# Databases
+# ==========================
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+backend/career_copilot.db
+career_copilot.db
+
+# ==========================
+# Runtime Artifacts
+# ==========================
+uploads/
+backend/uploads/
+backend/generated_pdfs/
+generated_pdfs/
+backend/email_outbox/
+email_outbox/
+job-search-service/job-search-service.log
+*.log
+gcm-diagnose.log
+
+# Generated resumes / documents
+*.pdf
+!docs/**/*.pdf
+*.docx
+!docs/**/*.docx
+
+# ==========================
+# Playwright / Browser Caches
+# ==========================
+playwright-report/
+test-results/
+.job-search-cache/
+
+# ==========================
+# IDE / OS
+# ==========================
+.vscode/
+.idea/
+*.swp
+*.swo
+Thumbs.db
+.DS_Store
+
+# ==========================
+# Local temp
+# ==========================
+tmp/
+temp/
+*.tmp

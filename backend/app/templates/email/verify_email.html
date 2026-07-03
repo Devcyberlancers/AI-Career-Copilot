@@ -1,0 +1,1 @@
+{% extends "base.html" %}{% block title %}Verify your email{% endblock %}{% block content %}<p>Hi {{ name }}, confirm this email address to protect your account.</p><p>This link expires at {{ expires_at }}.</p><p><a href="{{ verify_url }}" style="background:#4f46e5;color:#fff;padding:10px 14px;border-radius:8px;text-decoration:none;">Verify Email</a></p>{% endblock %}

@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{{ resume.name }} - Resume</title>
+  <link rel="stylesheet" href="{{ stylesheet_uri }}">
+</head>
+<body>
+  <main class="resume {{ density_class }}">
+    <header class="resume-header">
+      <h1>{{ resume.name }}</h1>
+      {% if resume.headline %}
+      <p class="headline">{{ resume.headline }}</p>
+      {% endif %}
+
+      {% set contact_items = [
+        resume.contact.phone,
+        resume.contact.email,
+        resume.contact.linkedin,
+        resume.contact.github,
+        resume.contact.location
+      ] %}
+      {% if contact_items | select | list %}
+      <p class="contact-line">
+        {% for item in contact_items if item %}
+        <span>{{ item }}</span>{% if not loop.last %}<span class="contact-separator"> | </span>{% endif %}
+        {% endfor %}
+      </p>
+      {% endif %}
+    </header>
+
+    {% if resume.summary %}
+    <section class="resume-section" aria-labelledby="summary-heading">
+      <h2 id="summary-heading">{{ section_labels.summary }}</h2>
+      <p class="summary">{{ resume.summary }}</p>
+    </section>
+    {% endif %}
+
+    {% if skill_groups %}
+    <section class="resume-section skills-section" aria-labelledby="skills-heading">
+      <h2 id="skills-heading">{{ section_labels.skills }}</h2>
+      <div class="skills-list">
+        {% for group in skill_groups %}
+        <p class="skill-row">
+          <strong>{{ group["label"] }}:</strong>
+          {% for skill in group["items"] %}
+          <span>{{ skill }}</span>{% if not loop.last %}<span class="skill-separator"> | </span>{% endif %}
+          {% endfor %}
+        </p>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+
+    {% if resume.experience %}
+    <section class="resume-section" aria-labelledby="experience-heading">
+      <h2 id="experience-heading">{{ section_labels.experience }}</h2>
+      {% for item in resume.experience %}
+      {% if item.company %}
+      <article class="entry experience-entry">
+        <div class="entry-row">
+          <div class="entry-main">
+            <p class="entry-title">{{ item.company }}{% if item.location %} | {{ item.location }}{% endif %}</p>
+            {% if item.title %}
+            <p class="entry-subtitle role-line">{{ item.title }}</p>
+            {% endif %}
+          </div>
+          {% if item.start_date or item.end_date %}
+          <p class="entry-date">
+            {{ item.start_date | resume_date }}{% if item.start_date and item.end_date %} - {% endif %}{{ item.end_date | resume_date }}
+          </p>
+          {% endif %}
+        </div>
+        {% if item.bullets %}
+        <ul>
+          {% for bullet in item.bullets %}
+          <li>{{ bullet }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </article>
+      {% endif %}
+      {% endfor %}
+    </section>
+    {% endif %}
+
+    {% if resume.projects %}
+    <section class="resume-section" aria-labelledby="projects-heading">
+      <h2 id="projects-heading">{{ section_labels.projects }}</h2>
+      {% for item in resume.projects %}
+      <article class="entry project-entry">
+        <div class="entry-row">
+          <div class="entry-main">
+            {% if item.name %}<p class="entry-title">{{ item.name }}{% if item.role %} | {{ item.role }}{% endif %}</p>{% endif %}
+          </div>
+          {% if item.date %}<p class="entry-date">{{ item.date | resume_date }}</p>{% endif %}
+        </div>
+        {% if item.technologies %}
+        <p class="tech-line"><strong>Tech:</strong> {{ item.technologies | join(" | ") }}</p>
+        {% endif %}
+        {% if item.bullets %}
+        <ul>
+          {% for bullet in item.bullets %}
+          <li>{{ bullet }}</li>
+          {% endfor %}
+        </ul>
+        {% elif item.description %}
+        <ul>
+          <li>{{ item.description }}</li>
+        </ul>
+        {% endif %}
+      </article>
+      {% endfor %}
+    </section>
+    {% endif %}
+
+    {% if resume.education %}
+    <section class="resume-section" aria-labelledby="education-heading">
+      <h2 id="education-heading">{{ section_labels.education }}</h2>
+      {% for item in resume.education %}
+      <article class="entry education-entry">
+        <div class="entry-row">
+          <div class="entry-main">
+            {% if item.degree or item.field_of_study %}
+            <p class="entry-title">{{ item.degree }}{% if item.degree and item.field_of_study %}, {% endif %}{{ item.field_of_study }}</p>
+            {% endif %}
+            {% if item.institution %}
+            <p class="entry-subtitle">{{ item.institution }}{% if item.location %} | {{ item.location }}{% endif %}</p>
+            {% endif %}
+          </div>
+          {% set education_date = item.graduation_date or item.end_date %}
+          {% if item.start_date or education_date %}
+          <p class="entry-date">{{ item.start_date | resume_date }}{% if item.start_date and education_date %} - {% endif %}{{ education_date | resume_date }}</p>
+          {% endif %}
+        </div>
+        {% if item.details %}
+        <ul>
+          {% for detail in item.details %}
+          <li>{{ detail }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </article>
+      {% endfor %}
+    </section>
+    {% endif %}
+
+    {% if resume.certifications %}
+    <section class="resume-section" aria-labelledby="certifications-heading">
+      <h2 id="certifications-heading">{{ section_labels.certifications }}</h2>
+      <div class="certification-list">
+        {% for item in resume.certifications %}
+        {% if item.name or item.issuer or item.date or item.credential_id or item.url %}
+        <p class="certification-line">
+          <strong>{{ item.name }}</strong>{% if item.issuer %}, {{ item.issuer }}{% endif %}{% if item.date and item.date not in item.name %} ({{ item.date }}){% endif %}
+        </p>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+
+    {% if resume.research %}
+    <section class="resume-section" aria-labelledby="research-heading">
+      <h2 id="research-heading">{{ section_labels.research }}</h2>
+      {% for item in resume.research %}
+      <article class="entry research-entry">
+        <div class="entry-row">
+          <div class="entry-main">
+            {% if item.title %}<p class="entry-title">{{ item.title }}</p>{% endif %}
+            {% if item.publication or item.url %}
+            <p class="entry-subtitle">{{ item.publication }}{% if item.publication and item.url %} | {% endif %}{{ item.url }}</p>
+            {% endif %}
+          </div>
+          {% if item.date %}<p class="entry-date">{{ item.date | resume_date }}</p>{% endif %}
+        </div>
+        {% if item.bullets %}
+        <ul>
+          {% for bullet in item.bullets %}
+          <li>{{ bullet }}</li>
+          {% endfor %}
+        </ul>
+        {% elif item.description %}
+        <p>{{ item.description }}</p>
+        {% endif %}
+      </article>
+      {% endfor %}
+    </section>
+    {% endif %}
+
+    {% if language_list %}
+    <section class="resume-section" aria-labelledby="languages-heading">
+      <h2 id="languages-heading">{{ section_labels.languages }}</h2>
+      <p class="languages-line">{{ language_list | join(" | ") }}</p>
+    </section>
+    {% endif %}
+  </main>
+</body>
+</html>

@@ -1,0 +1,1 @@
+{% extends "base.html" %}{% block title %}Application needs attention{% endblock %}{% block content %}<p>Your application could not be submitted.</p><p><strong>Reason:</strong> {{ reason }}</p><p><a href="{{ retry_url }}">Retry from dashboard</a></p>{% endblock %}

@@ -1,0 +1,122 @@
+{
+  "name": "AI Career Copilot Job Storage Pipeline",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "job-discovery-trigger",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "webhook-trigger",
+      "name": "Webhook Trigger"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:8001/search-jobs",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"query\": \"{{ $json.body.data.desired_job_title }}\",\n  \"location\": \"{{ $json.body.data.preferred_location }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        200,
+        0
+      ],
+      "id": "search-jobs-node",
+      "name": "Search Jobs Service"
+    },
+    {
+      "parameters": {
+        "batchSize": 1,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 1,
+      "position": [
+        400,
+        0
+      ],
+      "id": "loop-jobs-node",
+      "name": "Loop Through Jobs"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:8000/api/jobs/store",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"user_id\": {{ $('Webhook Trigger').item.json.body.data.user_id }},\n  \"title\": \"{{ $json.title }}\",\n  \"company\": \"{{ $json.company }}\",\n  \"location\": \"{{ $json.location }}\",\n  \"description\": \"{{ $json.description }}\",\n  \"apply_url\": \"{{ $json.apply_url }}\",\n  \"source\": \"{{ $json.source }}\",\n  \"status\": \"Discovered\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        600,
+        100
+      ],
+      "id": "store-job-node",
+      "name": "Store Job API"
+    }
+  ],
+  "connections": {
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "node": "Search Jobs Service",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search Jobs Service": {
+      "main": [
+        [
+          {
+            "node": "Loop Through Jobs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Through Jobs": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Store Job API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Store Job API": {
+      "main": [
+        [
+          {
+            "node": "Loop Through Jobs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "id": "ai-career-copilot-pipeline"
+}

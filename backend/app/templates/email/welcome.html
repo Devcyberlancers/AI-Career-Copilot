@@ -1,0 +1,4 @@
+{% extends "base.html" %}{% block title %}Welcome to AI Career Copilot{% endblock %}{% block content %}
+<p>Hi {{ name }}, welcome aboard.</p><p>Your workspace is ready. Verify your email, upload your resume, and start discovering matched jobs.</p>
+<p><a href="{{ verify_url }}" style="background:#4f46e5;color:#fff;padding:10px 14px;border-radius:8px;text-decoration:none;display:inline-block;">Verify email</a> <a href="{{ upload_resume_url }}" style="margin-left:8px;color:#4f46e5;">Upload resume</a></p>
+{% endblock %}

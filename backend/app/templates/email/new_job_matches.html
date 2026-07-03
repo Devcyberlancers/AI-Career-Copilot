@@ -1,0 +1,1 @@
+{% extends "base.html" %}{% block title %}New job matches{% endblock %}{% block content %}<p>Hi {{ name }}, here are your top matches today.</p><ul>{% for job in jobs %}<li><strong>{{ job.title }}</strong> at {{ job.company }}{% if job.match_score %} ? {{ job.match_score }}%{% endif %}</li>{% endfor %}</ul><p><a href="{{ dashboard_url }}">Open dashboard</a></p>{% endblock %}

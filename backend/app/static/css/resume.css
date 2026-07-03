@@ -1,0 +1,281 @@
+:root {
+  --resume-ink: #111827;
+  --resume-muted: #374151;
+  --resume-rule: #d0d0d0;
+  --resume-accent: #17365d;
+  --section-gap: 8px;
+  --entry-gap: 8px;
+  --bullet-gap: 3px;
+  --list-gap: 4px;
+  --body-size: 14px;
+  --bullet-size: 13.5px;
+  --heading-size: 16px;
+  --name-size: 25px;
+}
+
+@page {
+  size: A4;
+  margin: 0.42in 0.48in;
+}
+
+* {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  color: var(--resume-ink);
+  font-family: Calibri, Arial, Helvetica, sans-serif;
+  font-size: var(--body-size);
+  line-height: 1.22;
+  overflow-wrap: break-word;
+}
+
+body {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.resume {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.density-compact {
+  --section-gap: 6px;
+  --entry-gap: 6px;
+  --bullet-gap: 2px;
+  --list-gap: 3px;
+  --body-size: 13.7px;
+  --bullet-size: 13.2px;
+}
+
+.density-tight {
+  --section-gap: 4px;
+  --entry-gap: 5px;
+  --bullet-gap: 1px;
+  --list-gap: 2px;
+  --body-size: 13.5px;
+  --bullet-size: 13px;
+}
+
+.resume-header {
+  margin: 0 0 var(--section-gap);
+  padding: 0 0 4px;
+  border-bottom: 1px solid var(--resume-rule);
+  text-align: center;
+}
+
+h1 {
+  margin: 0;
+  padding: 0;
+  color: var(--resume-accent);
+  font-size: var(--name-size);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: 0;
+  overflow-wrap: anywhere;
+}
+
+.headline {
+  margin: 2px 0 0;
+  color: var(--resume-muted);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.12;
+  overflow-wrap: anywhere;
+}
+
+.contact-line {
+  margin: 2px 0 0;
+  color: var(--resume-muted);
+  font-size: 13px;
+  line-height: 1.12;
+  overflow-wrap: anywhere;
+}
+
+.contact-separator,
+.skill-separator {
+  white-space: pre;
+}
+
+.resume-section {
+  margin: 10px 0 var(--section-gap);
+  padding: 0;
+  break-inside: auto;
+}
+
+h2 {
+  margin: 0 0 6px;
+  padding: 0 0 2px;
+  border-bottom: 1px solid var(--resume-rule);
+  color: var(--resume-accent);
+  font-size: var(--heading-size);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+p {
+  margin: 0 0 2px;
+  padding: 0;
+}
+
+.summary {
+  margin: 0;
+  text-align: left;
+}
+
+.entry {
+  margin: 0 0 var(--entry-gap);
+  padding: 0;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.entry:last-child {
+  margin-bottom: 0;
+}
+
+.entry-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 0 0 2px;
+}
+
+.entry-main {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.entry-title {
+  margin: 0;
+  color: var(--resume-ink);
+  font-weight: 700;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+.entry-subtitle {
+  margin: 1px 0 0;
+  color: var(--resume-muted);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+.entry-date {
+  flex: 0 0 auto;
+  max-width: 34%;
+  margin: 0;
+  color: var(--resume-muted);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.12;
+  text-align: right;
+  white-space: normal;
+}
+
+.tech-line,
+.project-description {
+  margin: 2px 0 2px;
+  font-size: 13.5px;
+  line-height: 1.18;
+  overflow-wrap: anywhere;
+}
+
+ul {
+  margin: var(--list-gap) 0 var(--list-gap) 18px;
+  padding: 0;
+}
+
+li {
+  margin: 0 0 var(--bullet-gap);
+  padding-left: 1px;
+  color: var(--resume-ink);
+  font-size: var(--bullet-size);
+  line-height: 1.25;
+  overflow-wrap: break-word;
+}
+
+.skills-section {
+  margin-bottom: var(--section-gap);
+}
+
+.skills-list,
+.certification-list {
+  margin: 0;
+  padding: 0;
+}
+
+.skill-row {
+  margin: 0 0 2px;
+  line-height: 1.18;
+  overflow-wrap: anywhere;
+}
+
+.certification-line {
+  margin: 0 0 2px;
+  line-height: 1.16;
+  overflow-wrap: anywhere;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.education-entry {
+  margin-bottom: 8px;
+}
+
+.project-entry {
+  margin-bottom: 8px;
+}
+
+.experience-entry {
+  margin-bottom: 8px;
+}
+
+.research-entry {
+  margin-bottom: 6px;
+}
+
+.languages-line {
+  margin: 0;
+  line-height: 1.16;
+  overflow-wrap: anywhere;
+}
+
+strong {
+  color: var(--resume-ink);
+  font-weight: 700;
+}
+
+a {
+  color: var(--resume-ink);
+  text-decoration: none;
+}
+
+.entry,
+.education-entry,
+.project-entry,
+.experience-entry,
+.research-entry,
+.certification-line {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+@media print {
+  html,
+  body {
+    width: 210mm;
+    min-height: 297mm;
+  }
+}
